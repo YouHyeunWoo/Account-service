@@ -1,8 +1,6 @@
 package com.example.account.exception;
 
-import com.example.account.domain.Account;
 import com.example.account.dto.ErrorResponse;
-import com.example.account.type.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +14,7 @@ import static com.example.account.type.ErrorCode.INVALID_REQUEST;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccountException.class)
-    public ErrorResponse handleAccountException(AccountException e){
+    public ErrorResponse handleAccountException(AccountException e) {
         log.error("{} is ocurred.", e.getErrorCode());
 
         return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
@@ -25,18 +23,17 @@ public class GlobalExceptionHandler {
     //유니크키가 중복되어 저장하려하면발생하는 에러
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorResponse handleDataIntegrityViolationException(
-            DataIntegrityViolationException e)
-    {
+            DataIntegrityViolationException e) {
         log.error("{} is ocurred.", e);
 
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
 
     @ExceptionHandler(Exception.class)
-    public ErrorResponse handleException(Exception e){
+    public ErrorResponse handleException(Exception e) {
         log.error("Exception is ocurred.", e);
 
         return new ErrorResponse(INTERNAL_SERVER_ERROR,
-                INTERNAL_SERVER_ERROR.getDescription() );
+                INTERNAL_SERVER_ERROR.getDescription());
     }
 }
