@@ -34,19 +34,19 @@ public class TransactionController {
     public UseBalance.Response useBalance(
             @Valid @RequestBody UseBalance.Request request
     ) {
-            try{
-                return UseBalance.Response.from(transactionService.useBalance(request.getUserId(),
-                        request.getAccountNumber(), request.getAmount()));
-            }catch (AccountException e){
-                log.error("Failed to use balance. ");
+        try {
+            return UseBalance.Response.from(transactionService.useBalance(request.getUserId(),
+                    request.getAccountNumber(), request.getAmount()));
+        } catch (AccountException e) {
+            log.error("Failed to use balance. ");
 
-                transactionService.saveFailedUseTransaction(
-                        request.getAccountNumber(),
-                        request.getAmount()
-                );
+            transactionService.saveFailedUseTransaction(
+                    request.getAccountNumber(),
+                    request.getAmount()
+            );
 
-                throw e;
-            }
+            throw e;
+        }
     }
 
     @PostMapping("/transaction/cancel")
@@ -54,10 +54,10 @@ public class TransactionController {
     public CancelBalance.Response useBalance(
             @Valid @RequestBody CancelBalance.Request request
     ) {
-        try{
+        try {
             return CancelBalance.Response.from(transactionService.cancelBalance(request.getTransactionId(),
                     request.getAccountNumber(), request.getAmount()));
-        }catch (AccountException e){
+        } catch (AccountException e) {
             log.error("Failed to use balance. ");
 
             transactionService.saveFailedCancelTransaction(
@@ -71,7 +71,7 @@ public class TransactionController {
 
     @GetMapping("/transaction/{transactionId}")
     public QueryTransactionResponse queryTransaction(
-            @PathVariable String transactionId){
+            @PathVariable String transactionId) {
         return QueryTransactionResponse.from(
                 transactionService.queryTransaction(transactionId));
     }

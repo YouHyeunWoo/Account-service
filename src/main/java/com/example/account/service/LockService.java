@@ -1,6 +1,7 @@
 package com.example.account.service;
 
 import com.example.account.aop.AccountLock;
+import com.example.account.domain.Account;
 import com.example.account.exception.AccountException;
 import com.example.account.type.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class LockService {
                 log.error("===Lock acquistion failed===");
                 throw new AccountException(ErrorCode.ACCOUNT_TRANSACTION_LOCK);
             }
+        } catch(AccountException e){
+            throw e;
         } catch (Exception e) {
             log.error("Redis lock failed");
         }
