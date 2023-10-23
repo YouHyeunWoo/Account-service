@@ -1,5 +1,6 @@
 package com.example.account.dto;
 
+import com.example.account.aop.AccountLockIdInterface;
 import com.example.account.type.TransactionResultType;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -19,7 +20,7 @@ public class CancelBalance {
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class Request{ //Request할 때 Valid 하는 부분
+    public static class Request implements AccountLockIdInterface { //Request할 때 Valid 하는 부분
         @NotBlank
         private String transactionId;
 

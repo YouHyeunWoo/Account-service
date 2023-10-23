@@ -1,5 +1,6 @@
 package com.example.account.dto;
 
+import com.example.account.aop.AccountLockIdInterface;
 import com.example.account.type.TransactionResultType;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -19,7 +20,7 @@ public class UseBalance {
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class Request{ //Request할 때 Valid 하는 부분
+    public static class Request implements AccountLockIdInterface { //Request할 때 Valid 하는 부분
         @NotNull //userId는 null 일 수 없다
         @Min(1) //userId는 0인 사람은 없다 >> 1부터 시작
         private Long userId;
